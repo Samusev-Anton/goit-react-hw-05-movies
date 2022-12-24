@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchCast } from 'TakeApi';
+import { CastBox } from './Cast.styled';
 const imgBaceUrl = 'https://image.tmdb.org/t/p/w200';
 
 export const Cast = () => {
@@ -24,17 +24,20 @@ export const Cast = () => {
   }
 
   return (
-    <ul>
+    <CastBox>
       {casts.map(({ name, profile_path, id }) => (
         <li key={id}>
           {profile_path ? (
             <img src={`${imgBaceUrl}${profile_path}`} alt={name} />
           ) : (
-            <p>'no foto'</p>
+            <img
+              src="https://sd.keepcalms.com/i/keep-calm-poster-not-found.png"
+              alt="poster not found"
+            />
           )}
           <p>{name}</p>
         </li>
       ))}
-    </ul>
+    </CastBox>
   );
 };

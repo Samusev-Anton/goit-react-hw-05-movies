@@ -1,4 +1,4 @@
-import { SearchList } from 'components/SearchList';
+import { SearchList } from 'components/SearchList/SearchList';
 import { useState } from 'react';
 import { ImSearch } from 'react-icons/im';
 import { useSearchParams } from 'react-router-dom';
@@ -8,6 +8,7 @@ import {
   SesrchForm,
   SearchFormButton,
   SearchFormInput,
+  MovieBox,
 } from './Movies.styled';
 
 export const Movies = () => {
@@ -57,7 +58,7 @@ export const Movies = () => {
           </SearchFormButton>
         </SesrchForm>
       </SearchBar>
-      <ul>{movie.length > 0 && <SearchList movies={movie} />}</ul>
+      <MovieBox>{movie.length > 0 && <SearchList movies={movie} />}</MovieBox>
     </>
   );
 };

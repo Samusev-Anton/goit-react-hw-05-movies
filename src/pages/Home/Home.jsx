@@ -1,4 +1,4 @@
-import { MovieList } from 'components/MovieList';
+import { MovieList } from 'components/MovieList/MovieList';
 import { useEffect, useState } from 'react';
 import { fetchMovies } from 'TakeApi';
 import { HomeBox } from './Home.styled';

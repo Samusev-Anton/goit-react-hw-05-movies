@@ -5,4 +5,5 @@ export const HomeBox = styled.ul`
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   margin-bottom: 40px;
   gap: 20px;
+  padding: 30px;
 `;

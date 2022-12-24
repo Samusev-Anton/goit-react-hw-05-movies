@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchReviews } from 'TakeApi';
+import { ReviewsItem } from './Reviews.styled';
 
 export const Reviews = () => {
   const [reviews, setReviews] = useState('');
@@ -27,10 +27,10 @@ export const Reviews = () => {
       {reviews ? (
         <ul>
           {reviews.map(({ author, content, id }) => (
-            <li key={id}>
+            <ReviewsItem key={id}>
               <b>{author}</b>
               <p>{content}</p>
-            </li>
+            </ReviewsItem>
           ))}
         </ul>
       ) : (

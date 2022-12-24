@@ -1,7 +1,13 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { useParams, Link, Outlet } from 'react-router-dom';
+import { useParams, Outlet } from 'react-router-dom';
 import { fetchId } from 'TakeApi';
+import {
+  Details,
+  InfoFilm,
+  MoreInfoFilm,
+  MoreLink,
+} from './MovieDetails.styled';
 
 const imgBaceUrl = 'https://image.tmdb.org/t/p/w400';
 
@@ -14,6 +20,7 @@ export const MovieDetails = () => {
       try {
         const responce = await fetchId(movieId);
         setInfoFilm(responce);
+        console.log(responce);
       } catch (error) {}
     };
     getInfoFilm();
@@ -23,32 +30,41 @@ export const MovieDetails = () => {
     return;
   }
 
-  const { poster_path, original_title, overview, release_date, genres } =
-    infoFilm;
+  const {
+    poster_path,
+    original_title,
+    overview,
+    release_date,
+    genres,
+    vote_average,
+  } = infoFilm;
+
+  const userScore = Math.ceil(vote_average * 10);
+  const yearRelease = release_date.split('-')[0];
 
   return (
-    <div>
-      <div style={{ display: 'flex' }}>
+    <>
+      <Details>
         <img src={`${imgBaceUrl}${poster_path}`} alt={original_title} />
-        <div>
+        <InfoFilm>
           <h2>
-            {original_title}
-            {release_date}
+            {original_title}({yearRelease})
           </h2>
+          <p>User score: {userScore}%</p>
           <p>Owervies{overview}</p>
-          <p>Genres</p>
+          <b>Genres</b>
           <ul>
             {genres.map(({ id, name }) => (
               <li key={id}>{name}</li>
             ))}
           </ul>
-        </div>
-      </div>
-      <div>
-        <Link to="cast">Cast</Link>
-        <Link to="reviews">Reviews</Link>
-      </div>
+        </InfoFilm>
+      </Details>
+      <MoreInfoFilm>
+        <MoreLink to="cast">Cast</MoreLink>
+        <MoreLink to="reviews">Reviews</MoreLink>
+      </MoreInfoFilm>
       <Outlet />
-    </div>
+    </>
   );
 };

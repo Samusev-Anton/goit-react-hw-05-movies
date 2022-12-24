@@ -1,22 +1,23 @@
-import { NavLink, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { Home } from 'pages/Home/Home';
 import { Movies } from 'pages/Movies/Movies';
-import { MovieDetails } from 'pages/MovieDetails';
+import { MovieDetails } from 'pages/MovieDetails/MovieDetails';
 import { NotFound } from 'pages/NotFound';
-import { Cast } from './Cast';
-import { Reviews } from './Reviews';
+import { Cast } from './Cast/Cast';
+import { Reviews } from './Reviews/Reviews';
+import { Header, Nav, NavItem } from './App.styled';
 
 export const App = () => {
   return (
     <div>
-      <header>
-        <nav>
-          <NavLink to="/" end>
+      <Header>
+        <Nav>
+          <NavItem to="/" end>
             Home
-          </NavLink>
-          <NavLink to="/movies">Movies</NavLink>
-        </nav>
-      </header>
+          </NavItem>
+          <NavItem to="/movies">Movies</NavItem>
+        </Nav>
+      </Header>
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/movies" element={<Movies />}></Route>
@@ -24,9 +25,6 @@ export const App = () => {
           <Route path="cast" element={<Cast />}></Route>
           <Route path="reviews" element={<Reviews />}></Route>
         </Route>
-
-        {/* <Route path="/movies/:searchList" element={<SearchList />} /> */}
-        {/* <Route path="/details" element={<MovieDetails />}></Route> */}
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </div>

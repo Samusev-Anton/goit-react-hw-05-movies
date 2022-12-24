@@ -58,6 +58,14 @@ export const SearchFormInput = styled.input`
   padding-right: 4px;
 `;
 
+export const MovieBox = styled.ul`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  margin-bottom: 40px;
+  gap: 20px;
+  padding: 30px;
+`;
+
 // .SearchFormButtonLabel {
 //   position: absolute;
 //   width: 1px;
