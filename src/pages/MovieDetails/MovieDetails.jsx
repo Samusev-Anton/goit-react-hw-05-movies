@@ -1,6 +1,7 @@
+import { BackLink } from 'components/BackLink';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { useParams, Outlet } from 'react-router-dom';
+import { useParams, Outlet, useLocation } from 'react-router-dom';
 import { fetchId } from 'TakeApi';
 import {
   Details,
@@ -11,9 +12,11 @@ import {
 
 const imgBaceUrl = 'https://image.tmdb.org/t/p/w400';
 
-export const MovieDetails = () => {
+const MovieDetails = () => {
   const [infoFilm, setInfoFilm] = useState('');
   const { movieId } = useParams();
+  const location = useLocation();
+  const backLinkHref = location.state?.from ?? '/';
 
   useEffect(() => {
     const getInfoFilm = async () => {
@@ -44,6 +47,7 @@ export const MovieDetails = () => {
 
   return (
     <>
+      <BackLink to={backLinkHref}>Back to Films</BackLink>
       <Details>
         <img src={`${imgBaceUrl}${poster_path}`} alt={original_title} />
         <InfoFilm>
@@ -68,3 +72,5 @@ export const MovieDetails = () => {
     </>
   );
 };
+
+export default MovieDetails;

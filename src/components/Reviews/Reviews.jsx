@@ -3,8 +3,10 @@ import { useParams } from 'react-router-dom';
 import { fetchReviews } from 'TakeApi';
 import { ReviewsItem } from './Reviews.styled';
 
-export const Reviews = () => {
+const Reviews = () => {
   const [reviews, setReviews] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
   const { movieId } = useParams();
 
   useEffect(() => {
@@ -12,8 +14,11 @@ export const Reviews = () => {
       try {
         const responce = await fetchReviews(movieId);
         setReviews(responce.results);
-        console.log(responce.results);
-      } catch (error) {}
+        setIsLoading(true);
+        // console.log(responce.results);
+      } catch (error) {
+        setError(true);
+      }
     };
     getReviews();
   }, [movieId]);
@@ -24,7 +29,8 @@ export const Reviews = () => {
 
   return (
     <>
-      {reviews ? (
+      {error && <p>Ups! Something went wrong, try reloading the page</p>}
+      {reviews.length > 0 && isLoading && !error ? (
         <ul>
           {reviews.map(({ author, content, id }) => (
             <ReviewsItem key={id}>
@@ -34,8 +40,10 @@ export const Reviews = () => {
           ))}
         </ul>
       ) : (
-        'this film has not reviews'
+        <p>'this film has not reviews'</p>
       )}
     </>
   );
 };
+
+export default Reviews;

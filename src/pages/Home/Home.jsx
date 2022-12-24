@@ -15,7 +15,6 @@ export const Home = () => {
     getMovies();
   }, [setMovies]);
 
-  //   const { results } = getMovies;
   return (
     <HomeBox>
       <MovieList trends={movies} />

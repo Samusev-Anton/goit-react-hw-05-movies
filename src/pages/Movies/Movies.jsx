@@ -9,12 +9,15 @@ import {
   SearchFormButton,
   SearchFormInput,
   MovieBox,
+  SearchFormButtonLabel,
 } from './Movies.styled';
 
-export const Movies = () => {
+const Movies = () => {
   const [searchName, setSearchName] = useState('');
   const [movie, setMovie] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [error, setError] = useState(false);
 
   const handleInputChange = event => {
     const newSearchName = event.currentTarget.value.toLowerCase();
@@ -39,8 +42,10 @@ export const Movies = () => {
     try {
       const responce = await fetchSearchedMovie(searchName);
       setMovie(responce.results);
-      //   console.log(responce.results);
-    } catch (error) {}
+      setIsLoading(true);
+    } catch (error) {
+      setError(true);
+    }
   };
 
   return (
@@ -51,15 +56,24 @@ export const Movies = () => {
             type="text"
             value={searchName}
             name="name"
+            placeholder="Search films"
             onChange={handleInputChange}
           />
           <SearchFormButton type="submit">
             <ImSearch />
-            <span>Search</span>
+            <SearchFormButtonLabel>Search</SearchFormButtonLabel>
           </SearchFormButton>
         </SesrchForm>
       </SearchBar>
-      <MovieBox>{movie.length > 0 && <SearchList movies={movie} />}</MovieBox>
+      <MovieBox>
+        {error && <p>Something went wrong, try reloading the page</p>}
+        {movie.length === 0 && <p>Nothing found for your request</p>}
+        {movie.length > 0 && isLoading && !error && (
+          <SearchList movies={movie} />
+        )}
+      </MovieBox>
     </>
   );
 };
+
+export default Movies;
