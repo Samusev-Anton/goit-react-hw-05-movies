@@ -30,6 +30,7 @@ export const Movies = () => {
     }
     setSearchParams(searchName !== '' ? { query: searchName } : {});
     // const getParams = useParams.get(searchParams);
+    console.log(searchParams);
     getMovies(searchName);
     setSearchName('');
   };
